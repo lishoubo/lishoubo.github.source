@@ -12,11 +12,11 @@ categories: 中间件
 
 通过MAT的leak suspects，快度定位到是netty ChannelOutboundBuffer$Entry有内存泄漏的问题：
 
-![](/images/netty-entry-fgc-01.png)
+![](/images/middleware/netty-entry-fgc-01.png)
 
 将所有的Entry展现出来：
 
-![](/images/netty-entry-fgc-02.png)
+![](/images/middleware/netty-entry-fgc-02.png)
 
 第一眼看过去发现两个问题：
 
@@ -25,7 +25,7 @@ categories: 中间件
 
 进一步点开其中一个Entry看：
 
-![](/images/netty-entry-fgc-03.png)
+![](/images/middleware/netty-entry-fgc-03.png)
 
 发现：
 
@@ -159,7 +159,7 @@ select * from io.netty.channel.ChannelOutboundBuffer where flushed > 0
 
 结果如下：
 
-![](/images/netty-entry-fgc-04.png)
+![](/images/middleware/netty-entry-fgc-04.png)
 
 一共有四个ChannelOutboundBuffer的flushed大于0，加起来总共有80多万的量，跟mat里面统计的Entry的量刚好能对起来
 
