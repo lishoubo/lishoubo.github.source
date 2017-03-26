@@ -32,7 +32,7 @@ categories: 中间件
 1. 每个Entry都有一个next指针，这么看，所有的entry是被串成了一个链表
 2. Entry对象里面有一个3KB多的数据，把所有的entry排序后，发现，每个entry里面都有这3KB的数据，当所有entry的量上去之后，内存消耗就大了
 
-第1点：查看Netty代码，发现ChannelOutboundBuffer$Entry使用了基于[Thread Local](http://localhost:4000)的cache策略，所有的Entry串成list，而这些Entry不会被释放掉，进入了old区。
+第1点：查看Netty代码，发现ChannelOutboundBuffer$Entry使用了基于Thread Local的cache策略，所有的Entry串成list，而这些Entry不会被释放掉，进入了old区。
 
 第2点：查看MQ代码，发现消息实体在deallocate的时候，没有将里面的list释放掉，于是，这3KB的数据就会被累加起来
 
@@ -66,24 +66,24 @@ public void deallocate() {
 AbstractNioByteChannel.java
 
 protected void doWrite(ChannelOutboundBuffer in) throws Exception {
-            for (;;) {
-                Object msg = in.current();
-                    
-                    // *****
-                
-                    boolean done = false;
-                
-                    in.progress(flushedAmount);
-
-                    if (done) {
-                        /**
-                         * 判断msg已经被写完到send buffer钟
-                         */
-                        in.remove();
-                    } else {
-                        incompleteWrite(setOpWrite);
-                        break;
-                    }
+	for (;;) {
+	    Object msg = in.current();
+	        
+	        // *****
+	    
+	        boolean done = false;
+	    
+	        in.progress(flushedAmount);
+	
+	        if (done) {
+	            /**
+	             * 判断msg已经被写完到send buffer钟
+	             */
+	            in.remove();
+	        } else {
+	            incompleteWrite(setOpWrite);
+	            break;
+	        }
 
 ```
 
@@ -95,29 +95,29 @@ protected void doWrite(ChannelOutboundBuffer in) throws Exception {
 ChannelOutboundBuffer.java
 
 public boolean remove() {
-        Entry e = flushedEntry;
-        if (e == null) {
-            return false;
-        }
-        Object msg = e.msg;
+    Entry e = flushedEntry;
+    if (e == null) {
+        return false;
+    }
+    Object msg = e.msg;
 
-        ChannelPromise promise = e.promise;
-        int size = e.pendingSize;
+    ChannelPromise promise = e.promise;
+    int size = e.pendingSize;
 
-	//更新flushed
-        removeEntry(e);
+//更新flushed
+    removeEntry(e);
 
-        if (!e.cancelled) {
-            // 释放引用
-            ReferenceCountUtil.safeRelease(msg);
-            safeSuccess(promise);
-            decrementPendingOutboundBytes(size);
-        }
+    if (!e.cancelled) {
+        // 释放引用
+        ReferenceCountUtil.safeRelease(msg);
+        safeSuccess(promise);
+        decrementPendingOutboundBytes(size);
+    }
 
-        // 回收entry
-        e.recycle();
+    // 回收entry
+    e.recycle();
 
-        return true;
+    return true;
     }
 
 ```
@@ -128,18 +128,18 @@ remove逻辑比较简单，这个地方，我们关注的是recycle：
 ChannelOutboundBuffer$Entry.java
 
 void recycle() {
-            next = null;
-            bufs = null;
-            buf = null;
-            msg = null;
-            promise = null;
-            progress = 0;
-            total = 0;
-            pendingSize = 0;
-            count = -1;
-            cancelled = false;
-            RECYCLER.recycle(this, handle);
-        }
+    next = null;
+    bufs = null;
+    buf = null;
+    msg = null;
+    promise = null;
+    progress = 0;
+    total = 0;
+    pendingSize = 0;
+    count = -1;
+    cancelled = false;
+    RECYCLER.recycle(this, handle);
+}
 ```
 
 看到了关键的地方：msg ＝ null。 换句话说：
@@ -189,11 +189,11 @@ PING xxxxxxx (xxxxxxxx) 1500(1528) bytes of data.
 
 经过分析，触发这次fgc的流程已经离清楚了。我们系统主要存在下面两个问题：
 
-1. 客户端虽然设置了超时（3秒），但是，客户端可能会并发的对同一server进行访问，所以，当并发比较多时，超时后等待一段在重试的策略就失去了作用。
+1. 客户端虽然设置了超时（3秒），但是，客户端可能会并发的对同一server进行访问，所以，当并发比较多时，超时后等待一段再重试的策略就失去了作用。
 2. server没有进行buffer高水位控制，导致flushed变高时，依然可以往netty的send buffer写数据，进而导致阻塞，而客户端又不断重试，最终雪崩。
 
 ### 总结几点：
 
-1. 通信一定要有流控措施，避免对底成的buffer阻塞
+1. 通信一定要有流控措施，避免对底层的buffer阻塞
 2. 超时重试要考虑整体的效果，多线程的重试会使超时后等待一段时间的策略实效
 3. 问题产生的真正原因可能会被一些表面的原因，尤其是那些确实有问题的原因覆盖掉，就像第一步分析的结论里面，我们确实有内存没有清理的问题，但这不是根本原因。所以，根本问题的排查要抽丝剥茧，将整个流程串起来去排查
