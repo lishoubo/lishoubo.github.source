@@ -22,7 +22,6 @@ html(lang='#{config.language}')
     meta(content='black-translucent', name='apple-mobile-web-app-status-bar-style')
     meta(content='telephone=no', name='format-detection')
     meta(name='description', content=config.description)
-    meta(name='baidu-site-verification', content='cXo311eOiOi')
     block title
     link(rel='stylesheet', type='text/css', href='//cdn.bootcss.com/normalize/5.0.0/normalize.min.css')
     link(rel='stylesheet', type='text/css', href='//cdn.bootcss.com/pure/0.6.0/pure-min.css')
@@ -35,6 +34,14 @@ html(lang='#{config.language}')
     link(rel='apple-touch-icon-precomposed', href=url_for('apple-touch-icon.png'))
     if config.feed
       link(rel='alternate', type=feed_type, href=url_for(config.feed.path))
+    script.
+      var _hmt = _hmt || [];
+      (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5c504f7ca80d4d57db5434656761512d";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+      })();
 
   body: .body_container
     #header
