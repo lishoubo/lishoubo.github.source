@@ -93,13 +93,13 @@ com.vdian.lishoubo.demo.threadpool.ThreadPoolCreator$1.run(ThreadPoolCreator.jav
 
 > 注意，greys默认不会增强系统的类
 
-1. 打开系统类增强：
+* 打开系统类增强：
 
 ```
 options unsafe true
 ```
 
-2. 跟踪堆栈
+* 跟踪堆栈
 
 ```
 ga?>stack java.util.concurrent.Executors defaultThreadFactory
@@ -112,10 +112,15 @@ thread_name="Thread-0" thread_id=0x8;is_daemon=false;priority=5;
         at com.vdian.lishoubo.demo.threadpool.ThreadPoolCreator.createNewPool(ThreadPoolCreator.java:25)
         at com.vdian.lishoubo.demo.threadpool.ThreadPoolCreator$1.run(ThreadPoolCreator.java:17)
 ```
-3. 别忘了reset回来，取消增强
+* 别忘了reset回来，取消增强
 
 ```
 reset
 ```
+
+### 总结
+
+1. 使用线程池的时候，一定要设置名字
+2. 如果真遇到这种问题，可以使用greys来排查，毕竟greys不需要写脚本，但是，注意greys默认没有开启系统类增强
 
 
