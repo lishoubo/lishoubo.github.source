@@ -1,8 +1,8 @@
 ---
 title: 高并发统计qps
 date: 2017-07-04 10:04:15
-tags: [Java,工具]
-categories: 性能
+tags: [Java,性能]
+categories: 技术
 ---
 
 最近在写一个dubbo组件，用来统计服务的qps等指标，考虑到高并发的场景，就去研究了下[Netflix的RollingNumber](https://github.com/Netflix/Hystrix/blob/master/hystrix-core/src/main/java/com/netflix/hystrix/util/HystrixRollingNumber.java)，收获还不少（也有点杂）。

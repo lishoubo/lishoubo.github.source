@@ -1,7 +1,7 @@
 ---
 title: 问题排查线程导致oom
 date: 2017-06-28 10:15:53
-tags: [问题排查]
+tags: [问题排查, Java]
 categories: 技术
 ---
 

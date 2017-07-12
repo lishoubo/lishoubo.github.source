@@ -1,8 +1,8 @@
 ---
 title: 性能分析工具TProfiler
 date: 2017-07-04 14:14:07
-tags: [工具]
-categories: 性能
+tags: [工具,性能]
+categories: 技术
 ---
 
 

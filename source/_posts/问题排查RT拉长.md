@@ -1,8 +1,8 @@
 ---
 title: 问题排查RT拉长
 date: 2017-06-25 19:58:54
-tags: [问题排查]
-categories: 性能
+tags: [问题排查,性能]
+categories: 技术
 ---
 
 负责公司的DUBBO，业务在压一个DUBBO服务的时候，发现RT逐渐拉长,从最开始的4ms，到后面的18ms，业务觉得比较诡异，怀疑是DUBBO的问题，于是就到了我这

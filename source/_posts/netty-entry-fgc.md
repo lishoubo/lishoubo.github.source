@@ -2,7 +2,7 @@
 title: netty-entry-fgc
 date: 2017-03-21 15:20:27
 tags: [netty,问题排查]
-categories: 中间件
+categories: 技术
 ---
 
 公司线上的MQ（公司自研的MQ，类似于rocketMQ）出现fgc，于是把内存dump下来后进行分析。
