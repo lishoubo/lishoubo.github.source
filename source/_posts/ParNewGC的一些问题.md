@@ -140,7 +140,7 @@ java -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -X
 统计younggc对reference的处理耗时，用于排查young gc拉长的场景
 
 ```
-2017-07-14T17:47:45.276-0800: 5.617: [GC2017-07-14T17:47:45.276-0800: 5.617: [ParNew2017-07-14T17:47:45.278-0800: 5.619: [SoftReference, 0 refs, 0.0000930 secs]2017-07-14T17:47:45.278-0800: 5.619: [WeakReference, 0 refs, 0.0000110 secs]2017-07-14T17:47:45.278-0800: 5.619: [FinalReference, 0 refs, 0.0000090 secs]2017-07-14T17:47:45.278-0800: 5.619: [PhantomReference, 0 refs, 0 refs, 0.0000080 secs]2017-07-14T17:47:45.278-0800: 5.619: [JNI Weak Reference, 0.0000340 secs]: 104960K->2K(118016K), 0.0017400 secs] 105217K->259K(511232K), 0.0018410 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2017-04-13T17:47:45.276-0800: 5.617: [GC2017-04-13T17:47:45.276-0800: 5.617: [ParNew2017-04-13T17:47:45.278-0800: 5.619: [SoftReference, 0 refs, 0.0000930 secs]2017-04-13T17:47:45.278-0800: 5.619: [WeakReference, 0 refs, 0.0000110 secs]2017-04-13T17:47:45.278-0800: 5.619: [FinalReference, 0 refs, 0.0000090 secs]2017-04-13T17:47:45.278-0800: 5.619: [PhantomReference, 0 refs, 0 refs, 0.0000080 secs]2017-04-13T17:47:45.278-0800: 5.619: [JNI Weak Reference, 0.0000340 secs]: 104960K->2K(118016K), 0.0017400 secs] 105217K->259K(511232K), 0.0018410 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
 ```
 
 #### StringTable造成young gc拉长
