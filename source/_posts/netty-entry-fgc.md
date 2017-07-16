@@ -1,7 +1,7 @@
 ---
 title: netty-entry-fgc
 date: 2017-03-21 15:20:27
-tags: [netty,问题排查]
+tags: [netty,问题排查,GC]
 categories: 技术
 ---
 
