@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('img.fancy').each(function() {
+  $('img').each(function() {
     if ($(this).parent().hasClass('fancybox')) return;
     if ($(this).hasClass('nofancybox')) return;
     var alt = this.alt;
