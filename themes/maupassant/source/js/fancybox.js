@@ -13,12 +13,8 @@ $(document).ready(function() {
 $(document).ready(function() {
   $("a[href$='.jpg'],a[href$='.png'],a[href$='.gif'],a[href$='.webp']").attr('rel', 'gallery').fancybox({
     helpers : {
-      title: { type: 'inside'},
-      overlay :{closeClick:false,speedOut:0,showEarly:true}
-    },
-    modal: false,
-    closeClick: false,
-    padding:0,
-    scrolling:'no'
+      toolbar : true,
+      title: { type: 'inside'}
+    }
   });
 });
