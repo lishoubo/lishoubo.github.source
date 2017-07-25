@@ -10,3 +10,5 @@ date: 2017-07-04 17:25:50
 * [简单清晰的讲了MTU，MSS](http://blog.crhan.com/2014/05/mtu-and-mss/)
 * [清晰的解释了TCP timestamp的作用；讲清楚了tcp－recycle在NAT网络环境，因为per-host的PAWS机制，timestamp无法保持同步的原因](http://perthcharles.github.io/2015/08/27/timestamp-intro/)
 * [HTTP2.0介绍](https://developers.google.cn/web/fundamentals/performance/http2/?hl=zh-cn)，[HTTP2.0头部压缩](https://imququ.com/post/header-compression-in-http2.html)，[霍夫曼编码](http://coolshell.cn/articles/7459.html)
+* [irqbalance在压力大的时候会导致中断自动漂移，对性能造成不稳定因素](http://blog.yufeng.info/archives/2422), [可以将不同的硬件中断，例如网卡，绑定到指定的cpu上，IRQ Affinity](http://www.vpsee.com/2010/07/load-balancing-with-irq-smp-affinity/)
+* [linux网络性能优化导向，里面讲了一些linux内核如何处理数据包](http://www.linuxidc.com/Linux/2016-11/136642.htm)
