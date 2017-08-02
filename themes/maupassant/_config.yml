@@ -38,6 +38,8 @@ widgets: ## Six widgets in sidebar provided: search, category, tag, recent_posts
 links:
   - title: 阿里中间件团队博客
     url: http://jm.taobao.org
+  - title: 分布式专家Martin的博客
+    url: http://martin.kleppmann.com/
 
 timeline:
   - num: 1
