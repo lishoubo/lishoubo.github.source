@@ -11,3 +11,4 @@ date: 2017-07-04 17:25:50
 * [清晰的解释了TCP timestamp的作用；讲清楚了tcp－recycle在NAT网络环境，因为per-host的PAWS机制，timestamp无法保持同步的原因](http://perthcharles.github.io/2015/08/27/timestamp-intro/)
 * [HTTP2.0介绍](https://developers.google.cn/web/fundamentals/performance/http2/?hl=zh-cn)，[HTTP2.0头部压缩](https://imququ.com/post/header-compression-in-http2.html)，[霍夫曼编码](http://coolshell.cn/articles/7459.html)
 * [irqbalance在压力大的时候会导致中断自动漂移，对性能造成不稳定因素](http://blog.yufeng.info/archives/2422), [可以将不同的硬件中断，例如网卡，绑定到指定的cpu上，IRQ Affinity, 通过 cat /proc/interrupts 查看每个中断在各个cpu上的绑定情况](http://www.vpsee.com/2010/07/load-balancing-with-irq-smp-affinity/)
+* [backlog参数的介绍，新的linux（2.2）后面，将半连接状态和全连接状态分开存储](http://www.cnblogs.com/Orgliny/p/5780796.html)
