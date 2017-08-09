@@ -68,7 +68,7 @@ StatisticBench.doRune  avgt   25  5.239 ± 0.083  ms/o
 
 这期间一直研究了linux的perf，来看看到底哪儿占cpu比较严重，花了一段时间后，突然觉得，我可以换个思路：
 
-<strong>因为我一直的想法是，通过对比来定位问题，但这样实际的操作性不高，那么，我为什么不当作一次性能优化呢？不去关心是不是引入了新的DUBBO引起的问题，就是去解决提高性能，把rt降级2ms的一个优化工作</strong>
+<strong>因为我一直的想法是，通过对比来定位问题，但这样实际的操作性不高，那么，我为什么不当作一次性能优化呢？不去关心是不是引入了新的DUBBO引起的问题，就是去解决提高性能，把rt降低2ms的一个优化工作</strong>
 
 我觉得，思路一旦转变了之后，立马有了行动的动力。
 
@@ -151,7 +151,7 @@ FastJSON对SymbolTable做了大小限制，不会超过4096个。看来不是Fas
    1.91%  libjvm.so           [.] java_lang_Throwable::fill_in_stack_trace
    1.74%  libjvm.so           [.] java_lang_StackTraceElement::create
 ```
-为什么会一直在填充throwable的stackTrace？难道程序一直在抛异常？首先看了下业务日志，发现业务OK，那什么地方在不停的构造Throwable？
+为什么会一直在填充throwable的stackTrace？难倒程序一直在抛异常？首先看了下业务日志，发现业务OK，那什么地方在不停的构造Throwable？
 
 接下来，就该greys（或者btrace）上场了，用greys将Throwable的创建堆栈打了出来：
 
@@ -331,8 +331,7 @@ public Throwable() {
 ```
 当时修改dubbo的时候，觉得这么多日志太乱了，就想大家都用logback就好了。于是，把所有其他的日志都桥接到了logback, 现在问题就是出在这里:
 
->
-业务配置了logback.xml，但是没有配置log4j.xml， 在老的dubbo版本里面，因为log4j找不到log4j.xml，于是就不会触发构造日志的过程，而新版的里面，因为让我去掉了log4j而都桥接到了logback, 于是，mybatis就会构造loggingEvent，进而构造Throwable，结果导致cpu拉高，rt拉长。
+> 业务配置了logback.xml，但是没有配置log4j.xml， 在老的dubbo版本里面，因为log4j找不到log4j.xml，于是就不会触发构造日志的过程，而新版的里面，因为让我去掉了log4j而都桥接到了logback, 于是，mybatis就会构造loggingEvent，进而构造Throwable，结果导致cpu拉高，rt拉长。
 
 #### 问题的修复
 
