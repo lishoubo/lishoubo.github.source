@@ -69,3 +69,9 @@ theme: maupassant
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type:
+
+# Sitemap
+sitemap:
+  path:sitemap.xml
+baidusitemap:
+  path:baidusitemap.xml
