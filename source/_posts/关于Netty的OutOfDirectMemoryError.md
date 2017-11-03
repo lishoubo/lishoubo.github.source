@@ -99,7 +99,7 @@ private static void incrementMemoryCounter(int capacity) {
 Netty4.1之后的DirectBuffer很明显，绕开了Cleaner（当然，有一些前提的判断），给开发造成的影响就是：
 
 * 新的错误：**io.netty.util.internal.OutOfDirectMemoryError** 而不是 **OutOfMemoryError**.
-* 当directBuffer内存不够的时候，不会出发System.gc了。这一点还是比较重要的，不要老是盯着gc日志看问题了。具体可以在incrementMemoryCounter这个方法看到，内存达到限制了，直接抛出错误
+* 当directBuffer内存不够的时候，不会触发System.gc了。这一点还是比较重要的，不要老是盯着gc日志看问题了。具体可以在incrementMemoryCounter这个方法看到，内存达到限制了，直接抛出错误
 * 既然没有了Cleanner来抄底负责回收内存，那么，上层一定要自己记着收回DirectBuffer
 
 翻代码还是有收获的，当然，这些只是解决问题之后看到的，至于业务的问题，就需要他们在write的时候，添加流控措施，避免到达内存限制。
