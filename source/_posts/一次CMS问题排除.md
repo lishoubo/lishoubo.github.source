@@ -38,8 +38,8 @@ CommandLine flags: -XX:CMSInitiatingOccupancyFraction=70 -XX:+CMSParallelRemarkE
 
 跟业务经过确认，发布时间能够对的起来。疑问点：
 
-	* 每次发布，应用还没有启动完毕，会触发一次CMS
-	* CMS的时候，old区使用量为0:
+* 每次发布，应用还没有启动完毕，会触发一次CMS
+* CMS的时候，old区使用量为0:
 
 ```
 2018-08-20T11:38:36.800+0800: 2.133: [GC (CMS Initial Mark) [1 CMS-initial-mark: 0K(1572864K)] 796919K(3932160K), 0.0577900 secs] [Times: user=0.08 sys=0.00, real=0.05 secs]
@@ -64,8 +64,8 @@ S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU  
 
 有几个有意思的信息：
 
-	* MC，MU：显示perm才使用不到50M
-	* 为什么是MC，MU，而不是显示perm大小？
+* MC，MU：显示perm才使用不到50M
+* 为什么是MC，MU，而不是显示perm大小？
 
 然后查看了jdk版本，我们线上使用的jdk8，而jdk8里面perm区做了修改，可以查看[资料](http://www.importnew.com/14933.html).
 
