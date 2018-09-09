@@ -1,7 +1,7 @@
 ---
 title: 一次CMS问题排除
 date: 2018-08-25 16:11:58
-tags: [问题排除]
+tags: [问题排查]
 categories: 技术
 ---
 
