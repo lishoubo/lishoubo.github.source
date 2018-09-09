@@ -67,7 +67,7 @@ public SampleResult sample(Entry e)
 
 定位到具体的问题后，就开始找引起问题的原因。先抓包看了下：
 
-![](/images/middleware/tcp_hang_01.png)
+![](/images/tech/tcp_hang_01.png)
 
 很奇怪，其他的每次短链交互服务端都会恢复一个response，但是到了最后一次（也就是被hang住的时候），服务端没有恢复response。服务端出了什么问题？
 
